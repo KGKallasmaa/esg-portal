@@ -1,0 +1,34 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+#__next {
+  min-height: 100%;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+@layer components {
+  .debug {
+    @apply border border-red-500;
+  }
+  .horizontal {
+    @apply flex flex-row;
+  }
+  .vertical {
+    @apply flex flex-col;
+  }
+  .center-v {
+    @apply justify-center;
+  }
+  .center-h {
+    @apply items-center;
+  }
+}
