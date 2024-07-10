@@ -11,7 +11,7 @@ const LandingPage = dynamic(
   () => import('../domain/static/landingpage/Landingpage')
 )
 const DashboardContainer = dynamic(
-  () => import('../domain/dashboard/DashboardPage')
+  () => import('../domain/producer/DashboardPage')
 )
 
 export const metadata: Metadata = {

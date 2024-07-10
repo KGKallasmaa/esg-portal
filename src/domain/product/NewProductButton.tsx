@@ -1,11 +1,9 @@
 import { PlusSmallIcon } from '@heroicons/react/24/outline'
-import { useState } from 'react'
-import Modal from '../../../components/Modal'
-import dynamic from 'next/dynamic'
+import Modal from '../../components/Modal'
+import { memo, useState } from 'react'
+import NewProductForm from './NewProductForm'
 
-const NewAssetChoiseForm = dynamic(() => import('./NewAssetChoiceForm'))
-
-const NewAssetButton = () => {
+function NewProductButton({ producerId }: { producerId: string }) {
   const [showModal, setShowModal] = useState(false)
 
   const handleClose = () => {
@@ -16,13 +14,13 @@ const NewAssetButton = () => {
     return (
       <Modal
         backgroundColor="bg-white"
-        title={'Complete your portfolio'}
+        title={'Add product'}
         titleColor="text-primary"
         border="border border-primary"
         closable={true}
         onClose={() => setShowModal(false)}
       >
-        <NewAssetChoiseForm onClose={() => handleClose()} />
+        <NewProductForm producerId={producerId} onClose={() => handleClose()} />
       </Modal>
     )
   }
@@ -33,9 +31,9 @@ const NewAssetButton = () => {
       className="ml-auto flex items-center gap-x-1 rounded-md bg-primary px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-primary-darker focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
     >
       <PlusSmallIcon className="-ml-1.5 h-5 w-5" aria-hidden="true" />
-      Add assets
+      New product
     </button>
   )
 }
 
-export default NewAssetButton
+export default memo(NewProductButton)

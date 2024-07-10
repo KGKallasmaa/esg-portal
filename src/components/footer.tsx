@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import EmailSignup from '../domain/static/landingpage/EmailSignup'
+import EmailSignup from '../domain/static/landingpage/EmailSignUp'
 
 const navigation = {
   product: [{ name: 'Budget', href: 'https://getmerlin.ai/budget' }],
