@@ -4,7 +4,6 @@ namespace Product {
   export type Product = {
     id: string
     title: string
-    description: string
     state: ProductState
     created_at: Date
     updated_at: Date
