@@ -1,19 +1,24 @@
 namespace Producer {
   export type Producer = {
     id: string
-    url: string
-    emissions: {
+    emissions?: {
       scope1: {
-        value: number
-        unit: string
+        co2e: {
+          value: number
+          unit: string
+        }
       }
       scope2: {
-        value: number
-        unit: string
+        co2e: {
+          value: number
+          unit: string
+        }
       }
       scope3: {
-        value: number
-        unit: string
+        co2e: {
+          value: number
+          unit: string
+        }
       }
     }
   }

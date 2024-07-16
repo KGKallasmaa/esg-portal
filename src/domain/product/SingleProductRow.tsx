@@ -4,7 +4,7 @@ import { Menu } from '@headlessui/react'
 import { EllipsisVerticalIcon } from '@heroicons/react/20/solid'
 import { Bars2Icon } from '@heroicons/react/24/outline'
 import { useState } from 'react'
-import ProductSalesForm from './ProductSalesForm'
+import ProductSalesForm from '../sales/ProductSalesForm'
 import EditProductModal from './EditProductModal'
 import DeleteProduct from './DeleteProduct'
 
@@ -14,19 +14,24 @@ const stateColors = {
 }
 
 export default function SingleProductRow({ id, name, barcode, state, image }) {
-  const [mode,setMode] = useState('')
+  const [mode, setMode] = useState('')
 
   switch (mode) {
     case 'edit':
-      return <EditProductModal handleClose={()=>setMode('')} productId={id} />
+      return <EditProductModal handleClose={() => setMode('')} productId={id} />
     case 'delete':
       return <DeleteProduct productId={id} />
   }
 
   return (
     <>
-      <li onClick={mode === 'details' ? ()=> setMode(''):()=>setMode('details')} className="flex items-center justify-between gap-x-6 py-5 hover:bg-gray-50">
-        <div  className="min-w-0 ">
+      <li
+        onClick={
+          mode === 'details' ? () => setMode('') : () => setMode('details')
+        }
+        className="flex items-center justify-between gap-x-6 py-5 hover:bg-gray-50"
+      >
+        <div className="min-w-0 ">
           <div className="flex items-start gap-x-3">
             <p className="text-sm font-semibold leading-6 text-gray-900">
               {name}
@@ -77,7 +82,9 @@ export default function SingleProductRow({ id, name, barcode, state, image }) {
           </Menu>
         </div>
       </li>
-      {mode === 'details' && <ProductSalesForm productId={id} onClose={()=>setMode('') } />}
+      {mode === 'details' && (
+        <ProductSalesForm productId={id} onClose={() => setMode('')} />
+      )}
     </>
   )
 }

@@ -9,6 +9,12 @@ async function getProduct(id: string): Promise<Product.Product> {
   return await makeRequest(url, 'GET', true)
 }
 
+async function getProductsByProducerId(id: string): Promise<Product.Product[]> {
+  const path = `v1/products/producer/${id}`
+  const url = new URL(`${WEBAPP_URL}/${path}`)
+  return await makeRequest(url, 'GET', true)
+}
+
 async function postNewProduct(
   req: NewProductRequest
 ): Promise<Product.Product> {
@@ -18,13 +24,13 @@ async function postNewProduct(
 }
 
 async function putUpdatProduct(
-    id: string,
-    req: UpdateProductRequest
-  ): Promise<Product.Product> {
-    const path = `v1/products/${id}`
-    const url = new URL(`${WEBAPP_URL}/${path}`)
-    return await makeRequest(url, 'PUT', true, req)
-  }
+  id: string,
+  req: UpdateProductRequest
+): Promise<Product.Product> {
+  const path = `v1/products/${id}`
+  const url = new URL(`${WEBAPP_URL}/${path}`)
+  return await makeRequest(url, 'PUT', true, req)
+}
 
 async function deleteProduct(id: string): Promise<null> {
   const path = `v1/products/${id}`
@@ -34,6 +40,7 @@ async function deleteProduct(id: string): Promise<null> {
 
 export const ProductClient = {
   getProduct,
+  getProductsByProducerId,
   postNewProduct,
   putUpdatProduct,
   deleteProduct,

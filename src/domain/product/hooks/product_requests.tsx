@@ -1,10 +1,10 @@
 export type NewProductRequest = {
   barcode: string
-  name: string
+  title: string
   producer_id: string
 }
 
 export type UpdateProductRequest = {
-    barcode: string
-    name: string
-  }
+  barcode: string
+  title: string
+}

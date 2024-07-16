@@ -1,6 +1,6 @@
 import { memo } from 'react'
 import { useForm } from 'react-hook-form'
-import {  useUpdateProduct } from './hooks/product_hooks'
+import { useUpdateProduct } from './hooks/product_hooks'
 import toast from 'react-hot-toast'
 
 function EditProductForm({
@@ -17,15 +17,14 @@ function EditProductForm({
   } = useForm()
   const newProductMutation = useUpdateProduct()
 
-  const onSubmit = (data) => {
+  const onSubmit = (data: { title: string; barcode: string }) => {
     newProductMutation.mutate(
       {
         id: productId,
-        req:{
-          name: data.name,
+        req: {
+          title: data.title,
           barcode: data.barcode,
-        
-        }
+        },
       },
       {
         onSuccess: () => {
@@ -75,19 +74,18 @@ function EditProductForm({
           Name
         </label>
         <input
-          id="name"
+          id="title"
           type="text"
-          {...register('name', { required: 'Name is required' })}
+          {...register('title', { required: 'Name is required' })}
           className="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:outline-none"
         />
-        {errors.name && (
-          <p className="text-xs italic text-red-500">{errors.name.message}</p>
+        {errors.title && (
+          <p className="text-xs italic text-red-500">{errors.title.message}</p>
         )}
       </div>
       <div className="flex items-center justify-between">
         <button
-          title="Confirm"
-          type="submit"
+          title="Cancel"
           className="focus:shadow-outline rounded bg-gray-400 px-4 py-2 font-bold text-white hover:bg-gray-800 focus:outline-none"
         >
           Cancel
