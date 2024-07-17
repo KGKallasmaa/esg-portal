@@ -1,9 +1,7 @@
+import { zodResolver } from '@hookform/resolvers/zod'
 import { memo } from 'react'
 import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
-import { useNewProduct } from './hooks/product_hooks'
-
-import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 import { AlertDialogFooter } from '../../components/ui/alert-dialog'
 import { Button } from '../../components/ui/button'
@@ -17,6 +15,7 @@ import {
   FormMessage,
 } from '../../components/ui/form'
 import { Input } from '../../components/ui/input'
+import { useGetProduct, useUpdateProductDetails } from './hooks/product_hooks'
 
 const formSchema = z.object({
   title: z
@@ -27,40 +26,66 @@ const formSchema = z.object({
     .string()
     .min(3, { message: 'Barcode must be at least 3 characters.' })
     .max(50, { message: 'Barcode must be at most 50 characters.' }),
+  sales_quantity: z
+    .number()
+    .min(0, { message: 'Value can not be negative' })
+    .max(10_000_000_000, { message: 'Your sales are too big' }),
+  sales_value: z
+    .number()
+    .min(0, { message: 'Value can not be negative' })
+    .max(1_000_000_000_000, { message: 'Your sales are too big' }),
 })
 
-function NewProductForm({
-  producerId,
+function ProductDetailsForm({
+  productId,
   onClose,
 }: {
-  producerId: string
+  productId: string
   onClose: () => void
 }) {
-  const newProductMutation = useNewProduct()
+  const updateProductDetailsMutation = useUpdateProductDetails()
+  const { data: product } = useGetProduct(productId)
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
+    defaultValues: {
+      title: product?.details?.title || '',
+      barcode: product?.details?.barcode || '',
+      sales_quantity: product?.details?.sales.quantity || 0,
+      sales_value: product?.details?.sales.value.amount || 0,
+    },
   })
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    newProductMutation.mutate(
+    const updateProductDetailsRequest = {
+      title: values.title,
+      barcode: values.barcode,
+      sales: {
+        quantity: values.sales_quantity,
+        value: {
+          currency: 'USD',
+          amount: values.sales_value,
+        },
+      },
+    }
+    updateProductDetailsMutation.mutate(
       {
-        producer_id: producerId,
-        title: values.title,
-        barcode: values.barcode,
+        id: productId,
+        // @ts-ignore
+        req: updateProductDetailsRequest,
       },
       {
         onSuccess: () => {
-          toast.success('Product created')
+          toast.success('Product updated')
           onClose()
         },
-        onError: (error) => {
+        onError: () => {
           toast.error('Product creation failed.')
-          console.error(error)
         },
       }
     )
   }
+
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
@@ -94,6 +119,38 @@ function NewProductForm({
             </FormItem>
           )}
         />
+        <FormField
+          control={form.control}
+          name="sales_quantity"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Quantity</FormLabel>
+              <FormControl>
+                <Input placeholder="e.g. 1000" {...field} />
+              </FormControl>
+              <FormDescription>
+                How many unites of this products you have sold?
+              </FormDescription>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="sales_value"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Sales value (USD)</FormLabel>
+              <FormControl>
+                <Input placeholder="e.g. $10,000" {...field} />
+              </FormControl>
+              <FormDescription>
+                Whats the total value of the sales of this product?
+              </FormDescription>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
         <AlertDialogFooter>
           <Button type="button" variant="ghost" onClick={onClose}>
             Cancel
@@ -105,4 +162,4 @@ function NewProductForm({
   )
 }
 
-export default memo(NewProductForm)
+export default memo(ProductDetailsForm)

@@ -27,7 +27,7 @@ function ErrorScreen({ title, message, description }) {
         <div className="w-full px-4 pb-4 sm:px-6 md:pb-0">
           <button
             type="button"
-            className="group relative w-full justify-center rounded-md border border-transparent bg-primary px-4 py-2 text-sm font-medium text-white hover:bg-primary-darker focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
+            className="hover:bg-primary-darker group relative w-full justify-center rounded-md border border-transparent bg-primary px-4 py-2 text-sm font-medium text-white focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
           >
             Try again
           </button>

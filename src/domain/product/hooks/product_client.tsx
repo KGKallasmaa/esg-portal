@@ -1,7 +1,10 @@
 import { makeRequest } from '../../../config/request'
 import { WEBAPP_URL } from '../../../config/url'
 import Product from '../../../models/product'
-import { NewProductRequest, UpdateProductRequest } from './product_requests'
+import {
+  NewProductRequest,
+  UpdateProductDetailsRequest,
+} from './product_requests'
 
 async function getProduct(id: string): Promise<Product.Product> {
   const path = `v1/products/${id}`
@@ -25,9 +28,9 @@ async function postNewProduct(
 
 async function putUpdatProduct(
   id: string,
-  req: UpdateProductRequest
+  req: UpdateProductDetailsRequest
 ): Promise<Product.Product> {
-  const path = `v1/products/${id}`
+  const path = `v1/products/${id}/details`
   const url = new URL(`${WEBAPP_URL}/${path}`)
   return await makeRequest(url, 'PUT', true, req)
 }

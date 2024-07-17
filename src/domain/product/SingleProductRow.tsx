@@ -3,16 +3,16 @@ import { Menu } from '@headlessui/react'
 import { EllipsisVerticalIcon } from '@heroicons/react/20/solid'
 import { Bars2Icon } from '@heroicons/react/24/outline'
 import { useState } from 'react'
-import ProductSalesForm from '../sales/ProductSalesForm'
-import EditProductModal from './EditProductModal'
+import EditProductModal from './EditProductDetailsModal'
 import DeleteProduct from './DeleteProduct'
+import ProductDetailsView from './ProductDetailsView'
 
 const stateColors = {
   active: 'text-green-700 bg-green-50 ring-green-600/20',
   draft: 'text-gray-600 bg-gray-50 ring-gray-500/10',
 }
 
-export default function SingleProductRow({ id, name, barcode, state, image }) {
+export default function SingleProductRow({ id, name, barcode, state }) {
   const [mode, setMode] = useState('')
 
   switch (mode) {
@@ -58,13 +58,14 @@ export default function SingleProductRow({ id, name, barcode, state, image }) {
               <EllipsisVerticalIcon aria-hidden="true" className="h-5 w-5" />
             </Menu.Button>
             <Menu.Items
+              // @ts-ignore
               transition
-              className="absolute right-0 z-10 mt-2 w-32 origin-top-right rounded-md bg-white py-2 shadow-lg ring-1 ring-gray-900/5 transition data-[closed]:scale-95 data-[closed]:transform data-[closed]:opacity-0 data-[enter]:duration-100 data-[leave]:duration-75 data-[enter]:ease-out data-[leave]:ease-in focus:outline-none"
+              className="absolute right-0 z-10 mt-2 w-32 origin-top-right rounded-md bg-white py-2 shadow-lg ring-1 ring-gray-900/5 transition focus:outline-none data-[closed]:scale-95 data-[closed]:transform data-[closed]:opacity-0 data-[enter]:duration-100 data-[leave]:duration-75 data-[enter]:ease-out data-[leave]:ease-in"
             >
               <Menu.Item>
                 <button
                   onClick={() => setMode('edit')}
-                  className="block px-3 py-1 text-sm leading-6 text-gray-900 data-[focus]:bg-gray-50 hover:font-bold hover:text-black"
+                  className="block px-3 py-1 text-sm leading-6 text-gray-900 hover:font-bold hover:text-black data-[focus]:bg-gray-50"
                 >
                   Edit<span className="sr-only">, {name}</span>
                 </button>
@@ -81,9 +82,7 @@ export default function SingleProductRow({ id, name, barcode, state, image }) {
           </Menu>
         </div>
       </li>
-      {mode === 'details' && (
-        <ProductSalesForm productId={id} onClose={() => setMode('')} />
-      )}
+      {mode === 'details' && <ProductDetailsView productId={id} />}
     </>
   )
 }

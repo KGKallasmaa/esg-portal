@@ -1,7 +1,10 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { ProductClient } from './product_client'
 import { ProductQueries } from './product_query'
-import { NewProductRequest, UpdateProductRequest } from './product_requests'
+import {
+  NewProductRequest,
+  UpdateProductDetailsRequest,
+} from './product_requests'
 
 const ONE_MINUTE = 60 * 1000
 const ONE_HOUR = ONE_MINUTE * 60
@@ -80,12 +83,12 @@ export const useNewProduct = (options?: any) => {
   )
 }
 
-export const useUpdateProduct = (options?: any) => {
+export const useUpdateProductDetails = (options?: any) => {
   const queryClient = useQueryClient()
   const defaultOptions = {}
 
   return useMutation(
-    (params: { id: string; req: UpdateProductRequest }) =>
+    (params: { id: string; req: UpdateProductDetailsRequest }) =>
       ProductClient.putUpdatProduct(params.id, params.req),
     {
       ...defaultOptions,

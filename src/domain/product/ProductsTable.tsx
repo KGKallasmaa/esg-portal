@@ -58,14 +58,14 @@ export default function ProductsTable({ producerId }: { producerId: string }) {
             <div className="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
               <ul role="list" className="min-w-full divide-y divide-gray-300">
                 {products?.map((product) => {
+                  const { id, details } = product
                   return (
                     <SingleProductRow
-                      key={`single-product-row-${product.id}`}
-                      id={product.id}
-                      name={product.title}
-                      barcode={product.barcode}
+                      key={`single-product-row-${id}`}
+                      id={id}
+                      name={details.title}
+                      barcode={details.barcode}
                       state={product.state}
-                      image={undefined}
                     />
                   )
                 })}
