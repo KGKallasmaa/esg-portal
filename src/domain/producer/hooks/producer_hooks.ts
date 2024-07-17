@@ -124,7 +124,9 @@ export const useDeleteProducer = (options?: any) => {
   const queryClient = useQueryClient()
   const defaultOptions = {}
 
-  return useMutation((id) => ProducerClient.deleteProducer(id), {
+  return useMutation(
+    // @ts-ignore:next-line
+    (id) => ProducerClient.deleteProducer(id), {
     ...defaultOptions,
     ...options,
     onSettled: (producer: Producer.Producer) => {

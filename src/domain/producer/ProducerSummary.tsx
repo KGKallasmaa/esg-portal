@@ -1,4 +1,3 @@
-import { PlusIcon } from '@heroicons/react/24/outline'
 import LoadingCard from '../../components/LoadingCard'
 import { formatNumber } from '../money/money'
 import { useGetProducer } from './hooks/producer_hooks'
@@ -8,8 +7,6 @@ export default function ProducerSummary({ id }: { id: string }) {
   const { data: producer, isLoading, refetch } = useGetProducer(id)
   const noEmissions =
     producer?.emissions === null || producer?.emissions === undefined
-  console.log('producer', producer)
-  console.log('noEmissions', noEmissions)
 
   const stats = [
     {

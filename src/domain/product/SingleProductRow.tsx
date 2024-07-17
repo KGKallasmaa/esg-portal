@@ -1,5 +1,4 @@
 import classNames from 'classnames'
-import DeleteProductButton from './DeleteProduct'
 import { Menu } from '@headlessui/react'
 import { EllipsisVerticalIcon } from '@heroicons/react/20/solid'
 import { Bars2Icon } from '@heroicons/react/24/outline'

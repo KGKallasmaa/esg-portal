@@ -1,4 +1,3 @@
-import NewAssetButton from '../../domain/assets/new_asset/NewAssetButton'
 
 const Header = () => {
   return (

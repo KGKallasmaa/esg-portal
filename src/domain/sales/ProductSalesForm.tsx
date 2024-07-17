@@ -34,7 +34,7 @@ function ProductSalesForm({
         total: currentSales.price.amount,
       })
     }
-  }, [currentSales])
+  }, [currentSales,reset])
 
   const onSubmit = (data: { quantity: string; total: string }) => {
     if (currentSales) {

@@ -113,23 +113,27 @@ export const useDeleteProduct = (options?: any) => {
   const queryClient = useQueryClient()
   const defaultOptions = {}
 
-  return useMutation((id: string) => ProductClient.deleteProduct(id), {
-    ...defaultOptions,
-    ...options,
-    onSettled: () => {
-      const toBeInvalidated = []
-      const toBeRefetched = []
-      toBeInvalidated.forEach((q) => {
-        queryClient.invalidateQueries(q)
-      })
-      toBeRefetched.forEach((q) => {
-        queryClient.refetchQueries(q)
-      })
-    },
-    onError: (error) => {
-      // toast.error('Profile update failed.')
-      console.error(error)
-    },
-    retry: false,
-  })
+  return useMutation(
+    (id:string) =>
+      ProductClient.deleteProduct(id),
+    {
+      ...defaultOptions,
+      ...options,
+      onSettled: () => {
+        const toBeInvalidated = []
+        const toBeRefetched = []
+        toBeInvalidated.forEach((q) => {
+          queryClient.invalidateQueries(q)
+        })
+        toBeRefetched.forEach((q) => {
+          queryClient.refetchQueries(q)
+        })
+      },
+      onError: (error) => {
+        // toast.error('Profile update failed.')
+        console.error(error)
+      },
+      retry: true,
+    }
+  )
 }
