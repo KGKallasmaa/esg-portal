@@ -9,7 +9,6 @@ type SidebarProps = {
 
 // TODO: use loading
 export default function Sidebar(props: SidebarProps) {
-
   const handleLogoClick = () => {
     window.location.href = '/'
   }

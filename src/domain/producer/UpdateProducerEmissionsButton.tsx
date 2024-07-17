@@ -67,9 +67,21 @@ function UpdateProducerEmmisionsCard({
     formState: { errors },
   } = useForm({
     defaultValues: {
-      scope1: noEmissions ? 0 : producer?.emissions ? producer?.emissions.scope1.co2e.value : 0 || 0,
-      scope2: noEmissions ? 0 : producer?.emissions ? producer?.emissions.scope2.co2e.value : 0 || 0,
-      scope3: noEmissions ? 0 : producer?.emissions ? producer?.emissions.scope3.co2e.value : 0 || 0,
+      scope1: noEmissions
+        ? 0
+        : producer?.emissions
+        ? producer?.emissions.scope1.co2e.value
+        : 0 || 0,
+      scope2: noEmissions
+        ? 0
+        : producer?.emissions
+        ? producer?.emissions.scope2.co2e.value
+        : 0 || 0,
+      scope3: noEmissions
+        ? 0
+        : producer?.emissions
+        ? producer?.emissions.scope3.co2e.value
+        : 0 || 0,
     },
   })
 
