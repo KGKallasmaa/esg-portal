@@ -80,7 +80,7 @@ export const useNewProducer = (options?: any) => {
   )
 }
 
-export const useUpdateProducerEmmisions = (options?: any) => {
+export const useUpdateProducerDetails = (options?: any) => {
   const queryClient = useQueryClient()
   const defaultOptions = {}
 
@@ -91,10 +91,21 @@ export const useUpdateProducerEmmisions = (options?: any) => {
       scope2_value: number
       scope3_value: number
     }) =>
-      ProducerClient.putUpdateEmmisions(params.id, {
-        scope1_kgco2e: params.scope1_value,
-        scope2_kgco2e: params.scope2_value,
-        scope3_kgco2e: params.scope3_value,
+      ProducerClient.putUpdateDetails(params.id, {
+        emissions: [
+          {
+            scope: 'scope1',
+            value: { value: params.scope1_value, unit: 'kg' },
+          },
+          {
+            scope: 'scope2',
+            value: { value: params.scope2_value, unit: 'kg' },
+          },
+          {
+            scope: 'scope3',
+            value: { value: params.scope3_value, unit: 'kg' },
+          },
+        ],
       }),
     {
       ...defaultOptions,

@@ -1,6 +1,7 @@
 import { makeRequest } from '../../../config/request'
 import { WEBAPP_URL } from '../../../config/url'
 import Producer from '../../../models/producer'
+import { UpdateProducerDetailsRequest } from './producer_requests'
 
 async function getProducer(id: string): Promise<Producer.Producer> {
   const path = `v1/producers/${id}`
@@ -22,43 +23,13 @@ async function postCreateProducer(req: {
   return await makeRequest(url, 'POST', true, req)
 }
 
-async function putUpdateEmmisions(
+async function putUpdateDetails(
   id: string,
-  emmisions: {
-    scope1_kgco2e: number
-    scope2_kgco2e: number
-    scope3_kgco2e: number
-  }
+  req: UpdateProducerDetailsRequest
 ): Promise<Producer.Producer> {
   const path = `v1/producers/${id}/emissions`
   const url = new URL(`${WEBAPP_URL}/${path}`)
-  const payload = {
-    emissions: [
-      {
-        scope: 'scope1',
-        value: {
-          value: emmisions.scope1_kgco2e,
-          unit: 'kg',
-        },
-      },
-      {
-        scope: 'scope2',
-        value: {
-          value: emmisions.scope2_kgco2e,
-          unit: 'kg',
-        },
-      },
-      {
-        scope: 'scope3',
-        value: {
-          value: emmisions.scope3_kgco2e,
-          unit: 'kg',
-        },
-      },
-    ],
-  }
-  console.log('payload', payload)
-  return await makeRequest(url, 'PUT', true, payload)
+  return await makeRequest(url, 'PUT', true, req)
 }
 
 async function deleteProducer(id: string): Promise<null> {
@@ -70,6 +41,6 @@ export const ProducerClient = {
   getProducer,
   getMyProducers,
   postCreateProducer,
-  putUpdateEmmisions,
+  putUpdateDetails,
   deleteProducer,
 }

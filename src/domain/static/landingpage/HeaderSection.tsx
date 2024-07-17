@@ -9,8 +9,9 @@ const navigation = [
   /*
   { name: 'Product', href: '#product' },
   { name: 'Features', href: '#features' },
-  { name: 'Faq', href: '#faq' },
+ 
   */
+  { name: 'Faq', href: '#faq' },
 ]
 
 export default function HeaderSection() {

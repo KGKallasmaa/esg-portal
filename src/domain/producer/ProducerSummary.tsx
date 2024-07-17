@@ -1,33 +1,31 @@
 import LoadingCard from '../../components/LoadingCard'
 import { formatNumber } from '../money/money'
 import { useGetProducer } from './hooks/producer_hooks'
-import UpdateProducerEmmisionsButton from './UpdateProducerEmissionsButton'
+import UpdateProducerDetailsButton from './UpdateProducerDetailsButton'
+import UpdateProducerEmmisionsButton from './UpdateProducerDetailsButton'
 
 export default function ProducerSummary({ id }: { id: string }) {
   const { data: producer, isLoading, refetch } = useGetProducer(id)
-  const noEmissions =
-    producer?.emissions === null || producer?.emissions === undefined
-
   const stats = [
     {
       name: 'Scope1',
       stat: {
         unit: 'kgCo2e',
-        value: producer?.emissions?.scope1.co2e.value || 0,
+        value: producer?.details.emissions.scope1.co2e.value || 0,
       },
     },
     {
       name: 'Scope2',
       stat: {
         unit: 'kgCo2e',
-        value: producer?.emissions?.scope2.co2e.value || 0,
+        value: producer?.details.emissions.scope2.co2e.value || 0,
       },
     },
     {
       name: 'Scope3',
       stat: {
         unit: 'kgCo2e',
-        value: producer?.emissions?.scope3.co2e.value || 0,
+        value: producer?.details.emissions.scope3.co2e.value || 0,
       },
     },
   ]
@@ -48,6 +46,8 @@ export default function ProducerSummary({ id }: { id: string }) {
       </>
     )
   }
+  const noEmissions = stats.every((stat) => stat.stat.value === 0)
+
   if (noEmissions) {
     return (
       <>
@@ -82,7 +82,7 @@ export default function ProducerSummary({ id }: { id: string }) {
               Get started by adding emmisions data
             </p>
             <div className="mt-6">
-              <UpdateProducerEmmisionsButton
+              <UpdateProducerDetailsButton
                 onUpdated={() => refetch}
                 producerId={id}
               />
