@@ -3,6 +3,7 @@ import LoadingCard from '../../components/LoadingCard'
 import { useGetProductsByProducerId } from './hooks/product_hooks'
 import NewProductButton from './NewProductButton'
 import SingleProductRow from './SingleProductRow'
+import EditProductDetailsModal from './EditProductDetailsModal'
 
 export default function ProductsTable({ producerId }: { producerId: string }) {
   const { data: products, isLoading } = useGetProductsByProducerId(producerId)
@@ -63,7 +64,7 @@ export default function ProductsTable({ producerId }: { producerId: string }) {
                     <SingleProductRow
                       key={`single-product-row-${id}`}
                       id={id}
-                      name={details.title}
+                      title={details.title}
                       barcode={details.barcode}
                       state={product.state}
                     />

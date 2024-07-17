@@ -12,7 +12,7 @@ const stateColors = {
   draft: 'text-gray-600 bg-gray-50 ring-gray-500/10',
 }
 
-export default function SingleProductRow({ id, name, barcode, state }) {
+export default function SingleProductRow({ id, title, barcode, state }) {
   const [mode, setMode] = useState('')
 
   switch (mode) {
@@ -24,16 +24,18 @@ export default function SingleProductRow({ id, name, barcode, state }) {
 
   return (
     <>
-      <li
-        onClick={
-          mode === 'details' ? () => setMode('') : () => setMode('details')
-        }
-        className="flex items-center justify-between gap-x-6 py-5 hover:bg-gray-50"
-      >
+      <li className="flex items-center justify-between gap-x-6 py-5 hover:bg-gray-50">
         <div className="min-w-0 ">
           <div className="flex items-start gap-x-3">
-            <p className="text-sm font-semibold leading-6 text-gray-900">
-              {name}
+            <p
+              onClick={
+                mode === 'details'
+                  ? () => setMode('')
+                  : () => setMode('details')
+              }
+              className="text-sm font-semibold leading-6 text-gray-900"
+            >
+              {title}
             </p>
             {state !== 'active' && (
               <p
@@ -67,7 +69,7 @@ export default function SingleProductRow({ id, name, barcode, state }) {
                   onClick={() => setMode('edit')}
                   className="block px-3 py-1 text-sm leading-6 text-gray-900 hover:font-bold hover:text-black data-[focus]:bg-gray-50"
                 >
-                  Edit<span className="sr-only">, {name}</span>
+                  Edit<span className="sr-only">, {title}</span>
                 </button>
               </Menu.Item>
               <Menu.Item>
@@ -75,7 +77,7 @@ export default function SingleProductRow({ id, name, barcode, state }) {
                   onClick={() => setMode('delete')}
                   className="block px-3 py-1 text-sm leading-6 text-gray-900 data-[focus]:bg-gray-50"
                 >
-                  Delete<span className="sr-only">, {name}</span>
+                  Delete<span className="sr-only">, {title}</span>
                 </a>
               </Menu.Item>
             </Menu.Items>

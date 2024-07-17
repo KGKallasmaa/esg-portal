@@ -58,7 +58,7 @@ export default function ProducerSummary({ id }: { id: string }) {
             </h1>
           </div>
         </div>
-        <dl className="mt-5 grid grid-cols-1 gap-5 sm:grid-cols-3">
+        <dl className="mt-5">
           <div className="text-center">
             <svg
               fill="none"
@@ -108,7 +108,7 @@ export default function ProducerSummary({ id }: { id: string }) {
           />
         </div>
       </div>
-      <dl className="mt-5 grid grid-cols-1 gap-5 sm:grid-cols-3">
+      <dl className="mt-5">
         {isLoading && <LoadingCard count={3} />}
         {noEmissions ? (
           <div className="overflow-hidden rounded-lg bg-white px-4 py-5  sm:p-6">

@@ -27,7 +27,7 @@ async function putUpdateDetails(
   id: string,
   req: UpdateProducerDetailsRequest
 ): Promise<Producer.Producer> {
-  const path = `v1/producers/${id}/emissions`
+  const path = `v1/producers/${id}/details`
   const url = new URL(`${WEBAPP_URL}/${path}`)
   return await makeRequest(url, 'PUT', true, req)
 }

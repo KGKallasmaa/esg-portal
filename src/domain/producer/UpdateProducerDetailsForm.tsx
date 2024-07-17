@@ -20,15 +20,15 @@ import {
 } from './hooks/producer_hooks'
 
 const formSchema = z.object({
-  scope1: z
+  scope1: z.coerce
     .number()
     .min(0, { message: 'Value can not be negative' })
     .max(36_800_000_000_000, { message: 'Your emmisions are too big' }),
-  scope2: z
+  scope2: z.coerce
     .number()
     .min(0, { message: 'Value can not be negative' })
     .max(36_800_000_000_000, { message: 'Your emmisions are too big' }),
-  scope3: z
+  scope3: z.coerce
     .number()
     .min(0, { message: 'Value can not be negative' })
     .max(36_800_000_000_000, { message: 'Your emmisions are too big' }),
@@ -42,14 +42,14 @@ export default function UpdateProducerDetailsForm({
   onClose: () => void
 }) {
   const { data: producer } = useGetProducer(producerId)
-  const updateEmmisionsMutation = useUpdateProducerDetails()
+  const updateDetailsMutation = useUpdateProducerDetails()
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      scope1: producer ? producer.details.emissions.scope1.co2e.value || 0 : 0,
-      scope2: producer ? producer.details.emissions.scope1.co2e.value || 0 : 0,
-      scope3: producer ? producer.details.emissions.scope1.co2e.value || 0 : 0,
+      scope1: producer?.details?.emissions?.scope1.co2e.value || 0,
+      scope2: producer?.details?.emissions?.scope2.co2e.value || 0,
+      scope3: producer?.details?.emissions?.scope3.co2e.value || 0,
     },
   })
   function onSubmit(values: z.infer<typeof formSchema>) {
@@ -59,7 +59,7 @@ export default function UpdateProducerDetailsForm({
       scope2_value: values.scope2,
       scope3_value: values.scope3,
     }
-    updateEmmisionsMutation.mutate(updateEmmisionsReq, {
+    updateDetailsMutation.mutate(updateEmmisionsReq, {
       onSuccess: (producerValue) => {
         console.log('producerValue', producerValue)
         toast.success('Emmisions updated')
@@ -81,7 +81,11 @@ export default function UpdateProducerDetailsForm({
             <FormItem>
               <FormLabel>Scope1</FormLabel>
               <FormControl>
-                <Input placeholder="Scope 1 emmisions in kgCo2E" {...field} />
+                <Input
+                  type="number"
+                  placeholder="Scope 1 emmisions in kgCo2E"
+                  {...field}
+                />
               </FormControl>
               <FormDescription>What are your scope1 emissions?</FormDescription>
               <FormMessage />
@@ -95,7 +99,11 @@ export default function UpdateProducerDetailsForm({
             <FormItem>
               <FormLabel>Scope2</FormLabel>
               <FormControl>
-                <Input placeholder="Scope 2 emmisions in kgCo2E" {...field} />
+                <Input
+                  type="number"
+                  placeholder="Scope 2 emmisions in kgCo2E"
+                  {...field}
+                />
               </FormControl>
               <FormDescription>What are your scope2 emissions?</FormDescription>
               <FormMessage />
@@ -109,7 +117,11 @@ export default function UpdateProducerDetailsForm({
             <FormItem>
               <FormLabel>Scope3</FormLabel>
               <FormControl>
-                <Input placeholder="Scope 3 emmisions in kgCo2E" {...field} />
+                <Input
+                  type="number"
+                  placeholder="Scope 3 emmisions in kgCo2E"
+                  {...field}
+                />
               </FormControl>
               <FormDescription>What are your scope3 emissions?</FormDescription>
               <FormMessage />

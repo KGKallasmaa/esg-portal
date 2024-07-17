@@ -26,11 +26,11 @@ const formSchema = z.object({
     .string()
     .min(3, { message: 'Barcode must be at least 3 characters.' })
     .max(50, { message: 'Barcode must be at most 50 characters.' }),
-  sales_quantity: z
+  sales_quantity: z.coerce
     .number()
     .min(0, { message: 'Value can not be negative' })
     .max(10_000_000_000, { message: 'Your sales are too big' }),
-  sales_value: z
+  sales_value: z.coerce
     .number()
     .min(0, { message: 'Value can not be negative' })
     .max(1_000_000_000_000, { message: 'Your sales are too big' }),
@@ -44,15 +44,16 @@ function ProductDetailsForm({
   onClose: () => void
 }) {
   const updateProductDetailsMutation = useUpdateProductDetails()
-  const { data: product } = useGetProduct(productId)
+  const { data: product, isLoading } = useGetProduct(productId)
+  if (isLoading) return <div>Loading...</div>
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       title: product?.details?.title || '',
       barcode: product?.details?.barcode || '',
-      sales_quantity: product?.details?.sales.quantity || 0,
-      sales_value: product?.details?.sales.value.amount || 0,
+      sales_quantity: product?.details?.sales?.quantity || 0,
+      sales_value: product?.details?.sales?.value.amount || 0,
     },
   })
 
@@ -80,7 +81,7 @@ function ProductDetailsForm({
           onClose()
         },
         onError: () => {
-          toast.error('Product creation failed.')
+          toast.error('Product update failed.')
         },
       }
     )
@@ -126,7 +127,7 @@ function ProductDetailsForm({
             <FormItem>
               <FormLabel>Quantity</FormLabel>
               <FormControl>
-                <Input placeholder="e.g. 1000" {...field} />
+                <Input type="number" placeholder="e.g. 1000" {...field} />
               </FormControl>
               <FormDescription>
                 How many unites of this products you have sold?
@@ -142,7 +143,7 @@ function ProductDetailsForm({
             <FormItem>
               <FormLabel>Sales value (USD)</FormLabel>
               <FormControl>
-                <Input placeholder="e.g. $10,000" {...field} />
+                <Input type="number" placeholder="e.g. $10,000" {...field} />
               </FormControl>
               <FormDescription>
                 Whats the total value of the sales of this product?
@@ -155,7 +156,7 @@ function ProductDetailsForm({
           <Button type="button" variant="ghost" onClick={onClose}>
             Cancel
           </Button>
-          <Button type="submit">Create</Button>
+          <Button type="submit">Save</Button>
         </AlertDialogFooter>
       </form>
     </Form>

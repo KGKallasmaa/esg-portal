@@ -19,7 +19,7 @@ export default function UpdateProducerDetailsButton({
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant="outline">Update emissions</Button>
+        <Button variant="default">Update emissions</Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>

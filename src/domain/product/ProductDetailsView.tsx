@@ -14,6 +14,14 @@ function ProductDetailsView({ productId }: { productId: string }) {
       title: 'Barcode',
       value: product?.details?.barcode,
     },
+    {
+      title: 'Sales Quantity',
+      value: product?.details?.sales?.quantity,
+    },
+    {
+      title: 'Sales Value',
+      value: product?.details?.sales?.value.amount,
+    },
   ]
 
   return (

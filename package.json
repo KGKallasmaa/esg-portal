@@ -72,7 +72,7 @@
     "react-router-dom": "^6.4.3",
     "react-slick": "^0.29.0",
     "react-social-icons": "^6.16.0",
-    "recharts": "^2.10.4",
+    "recharts": "^2.12.7",
     "sharp": "^0.32.6",
     "tailwind-merge": "^2.4.0",
     "tailwind-scrollbar": "^3.0.4",

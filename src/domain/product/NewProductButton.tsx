@@ -1,28 +1,34 @@
-import {
-  AlertDialog,
-  AlertDialogContent,
-  AlertDialogTitle,
-  AlertDialogTrigger,
-} from '@radix-ui/react-alert-dialog'
 import { memo } from 'react'
-import { AlertDialogHeader } from '../../components/ui/alert-dialog'
+import { Button } from '../../components/ui/button'
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from '../../components/ui/dialog'
 import NewProductForm from './NewProductForm'
 
 function NewProductButton({ producerId }: { producerId: string }) {
   const handleClose = () => {
     window.location.reload()
   }
-
   return (
-    <AlertDialog>
-      <AlertDialogTrigger>New product</AlertDialogTrigger>
-      <AlertDialogContent>
-        <AlertDialogHeader>
-          <AlertDialogTitle>Add product</AlertDialogTitle>
-        </AlertDialogHeader>
+    <Dialog>
+      <DialogTrigger asChild>
+        <Button variant="default">New product</Button>
+      </DialogTrigger>
+      <DialogContent className="sm:max-w-[425px]">
+        <DialogHeader>
+          <DialogTitle>Update emissions</DialogTitle>
+          <DialogDescription>
+            Add a new product to your catalogue
+          </DialogDescription>
+        </DialogHeader>
         <NewProductForm producerId={producerId} onClose={() => handleClose()} />
-      </AlertDialogContent>
-    </AlertDialog>
+      </DialogContent>
+    </Dialog>
   )
 }
 
