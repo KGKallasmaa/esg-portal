@@ -59,7 +59,7 @@ function EditProductForm({
           {...register('barcode', { required: 'Barcode is required' })}
           className="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:outline-none"
         />
-        {errors.barcode && (
+        {errors.barcode && errors.barcode.message && (
           <p className="text-xs italic text-red-500">
             {errors.barcode.message}
           </p>

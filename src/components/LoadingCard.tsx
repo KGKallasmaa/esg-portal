@@ -3,7 +3,7 @@ export default function LoadingCard({ count }: { count: number }) {
     <>
       {Array(count)
         .fill(1)
-        .map((nr, i) => {
+        .map((_nr, i) => {
           return (
             <div
               key={`loading-nr-${i}`}

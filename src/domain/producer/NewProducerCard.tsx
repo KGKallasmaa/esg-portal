@@ -16,7 +16,7 @@ export default function NewProducerCard({ onClose }: { onClose: () => void }) {
       name: data.name,
     }
     newProducerMutation.mutate(newProducerRequest, {
-      onSuccess: (newProducer) => {
+      onSuccess: () => {
         toast.success('New producer created successfully.')
         onClose()
         reset()

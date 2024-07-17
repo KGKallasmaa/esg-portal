@@ -1,21 +1,9 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import Sidebar from './Sidebar'
-import useNavigationStore from '../../state_management/stores/navigation.store'
 import Header from './Header'
 import { isDesktop } from 'react-device-detect'
 
 export default function Layout({ children }) {
-  const { setCurrentPage } = useNavigationStore()
-
-  // Track the current page
-  useEffect(() => {
-    const path = window.location.pathname
-    const page = path.split('/').pop()
-    if (page) {
-      setCurrentPage(page)
-    }
-  }, [setCurrentPage])
-
   const [sidebarOpen, setSidebarOpen] = useState(false)
 
   if (isDesktop) {

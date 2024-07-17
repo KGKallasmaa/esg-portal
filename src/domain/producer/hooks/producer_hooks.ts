@@ -124,25 +124,29 @@ export const useDeleteProducer = (options?: any) => {
   const queryClient = useQueryClient()
   const defaultOptions = {}
 
-  return useMutation((id) => ProducerClient.deleteProducer(id), {
-    ...defaultOptions,
-    ...options,
-    onSettled: (producer: Producer.Producer) => {
-      const toBeInvalidated = [
-        ProducerQueries.Producer(producer.id),
-        ProducerQueries.MyProducers(),
-      ]
-      const toBeRefetched = []
-      toBeInvalidated.forEach((q) => {
-        queryClient.invalidateQueries(q)
-      })
-      toBeRefetched.forEach((q) => {
-        queryClient.refetchQueries(q)
-      })
-    },
-    onError: (error) => {
-      console.error('failed to delete producer', error)
-    },
-    retry: true,
-  })
+  return useMutation(
+    // @ts-ignore:next-line
+    (id) => ProducerClient.deleteProducer(id),
+    {
+      ...defaultOptions,
+      ...options,
+      onSettled: (producer: Producer.Producer) => {
+        const toBeInvalidated = [
+          ProducerQueries.Producer(producer.id),
+          ProducerQueries.MyProducers(),
+        ]
+        const toBeRefetched = []
+        toBeInvalidated.forEach((q) => {
+          queryClient.invalidateQueries(q)
+        })
+        toBeRefetched.forEach((q) => {
+          queryClient.refetchQueries(q)
+        })
+      },
+      onError: (error) => {
+        console.error('failed to delete producer', error)
+      },
+      retry: true,
+    }
+  )
 }

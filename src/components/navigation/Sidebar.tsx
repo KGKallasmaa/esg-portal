@@ -1,7 +1,6 @@
 import classNames from 'classnames'
 import Link from 'next/link'
 import { BiCog, BiLogOut } from 'react-icons/bi'
-import useNavigationStore from '../../state_management/stores/navigation.store'
 import Logo from '../Logo'
 
 type SidebarProps = {
@@ -10,10 +9,7 @@ type SidebarProps = {
 
 // TODO: use loading
 export default function Sidebar(props: SidebarProps) {
-  const { currentPage, setCurrentPage } = useNavigationStore()
-
   const handleLogoClick = () => {
-    setCurrentPage('')
     window.location.href = '/'
   }
   // 'bg-primary dark:bg-gray-900 lg:fixed lg:inset-y-0 lg:flex lg:w-64 lg:flex-col',

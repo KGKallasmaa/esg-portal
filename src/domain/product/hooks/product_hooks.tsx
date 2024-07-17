@@ -130,6 +130,6 @@ export const useDeleteProduct = (options?: any) => {
       // toast.error('Profile update failed.')
       console.error(error)
     },
-    retry: false,
+    retry: true,
   })
 }

@@ -1,5 +1,4 @@
 import Money from '../../models/money'
-import Transactions from '../../models/transactions'
 
 export function formatMoney(
   money: Money.MoneyValue | undefined,
@@ -39,49 +38,6 @@ export function formatMoneyAbs(
   return formatMoney(money, rounding)
 }
 
-export function transactionToAbsoluteValue(
-  transaction: Transactions.Transaction
-): Transactions.Transaction {
-  return {
-    ...transaction,
-    money: {
-      ...transaction.money,
-      amount: Math.abs(transaction.money.amount),
-    },
-  }
-}
-export function transactionsToAbsoluteValues(
-  transactions: Transactions.Transaction[]
-): Transactions.Transaction[] {
-  return transactions.map((transaction) =>
-    transactionToAbsoluteValue(transaction)
-  )
-}
-
-export function recurringTransactionsToAbsoluteValues(
-  transactions: Transactions.RecurringTransaction[]
-): Transactions.RecurringTransaction[] {
-  return transactions.map((transaction) =>
-    recurringTransactionToAbsoluteValues(transaction)
-  )
-}
-
-export function recurringTransactionToAbsoluteValues(
-  transaction: Transactions.RecurringTransaction
-): Transactions.RecurringTransaction {
-  return {
-    ...transaction,
-    averageAmount: {
-      ...transaction.averageAmount,
-      amount: Math.abs(transaction.averageAmount.amount),
-    },
-    lastAmount: {
-      ...transaction.lastAmount,
-      amount: Math.abs(transaction.lastAmount.amount),
-    },
-  }
-}
-
 export function round(value: number, decimals: number) {
   return Number(Math.round(Number(value + 'e' + decimals)) + 'e-' + decimals)
 }
@@ -102,9 +58,4 @@ export function futureValue(
   periods: number
 ) {
   return presentValue * Math.pow(1 + rate, periods)
-}
-
-function countDecimals(value: number) {
-  if (Math.floor(value) === value) return 0
-  return value.toString().split('.')[1].length || 0
 }

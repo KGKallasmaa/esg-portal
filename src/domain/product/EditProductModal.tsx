@@ -1,7 +1,5 @@
-import { PlusSmallIcon } from '@heroicons/react/24/outline'
+import { memo } from 'react'
 import Modal from '../../components/Modal'
-import { memo, useState } from 'react'
-import NewProductForm from '../sales/ProductSalesForm'
 import EditProductForm from './EditProductForm'
 
 function EditProductModal({

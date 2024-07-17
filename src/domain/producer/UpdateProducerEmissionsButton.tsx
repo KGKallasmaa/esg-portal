@@ -67,17 +67,25 @@ function UpdateProducerEmmisionsCard({
     formState: { errors },
   } = useForm({
     defaultValues: {
-      scop1: noEmissions ? 0 : producer?.emissions.scope1.co2e.value || 0,
-      scop2: noEmissions ? 0 : producer?.emissions.scope2.co2e.value || 0,
-      scop3: noEmissions ? 0 : producer?.emissions.scope3.co2e.value || 0,
+      scope1: noEmissions
+        ? 0
+        : producer?.emissions
+        ? producer?.emissions.scope1.co2e.value
+        : 0 || 0,
+      scope2: noEmissions
+        ? 0
+        : producer?.emissions
+        ? producer?.emissions.scope2.co2e.value
+        : 0 || 0,
+      scope3: noEmissions
+        ? 0
+        : producer?.emissions
+        ? producer?.emissions.scope3.co2e.value
+        : 0 || 0,
     },
   })
 
-  const onSubmit = async (data: {
-    scope1: string
-    scope2: string
-    scope3: string
-  }) => {
+  const onSubmit = async (data) => {
     const updateEmmisionsReq = {
       id: producerId,
       scope1_value: parseFloat(data.scope1),
