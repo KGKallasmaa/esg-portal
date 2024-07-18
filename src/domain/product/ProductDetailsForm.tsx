@@ -1,5 +1,5 @@
 import { zodResolver } from '@hookform/resolvers/zod'
-import { memo } from 'react'
+import { memo, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
 import { z } from 'zod'
@@ -45,7 +45,6 @@ function ProductDetailsForm({
 }) {
   const updateProductDetailsMutation = useUpdateProductDetails()
   const { data: product, isLoading } = useGetProduct(productId)
-  if (isLoading) return <div>Loading...</div>
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -56,6 +55,15 @@ function ProductDetailsForm({
       sales_value: product?.details?.sales?.value.amount || 0,
     },
   })
+
+  useEffect(() => {
+    form.reset({
+      title: product?.details?.title || '',
+      barcode: product?.details?.barcode || '',
+      sales_quantity: product?.details?.sales?.quantity || 0,
+      sales_value: product?.details?.sales?.value.amount || 0,
+    })
+  }, [product])
 
   function onSubmit(values: z.infer<typeof formSchema>) {
     const updateProductDetailsRequest = {

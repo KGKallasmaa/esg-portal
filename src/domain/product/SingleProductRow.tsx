@@ -15,6 +15,14 @@ const stateColors = {
 export default function SingleProductRow({ id, title, barcode, state }) {
   const [mode, setMode] = useState('')
 
+  const onRowClicked = () => {
+    if (mode === 'details') {
+      setMode('')
+    } else {
+      setMode('details')
+    }
+  }
+
   switch (mode) {
     case 'edit':
       return <EditProductModal handleClose={() => setMode('')} productId={id} />
@@ -25,14 +33,10 @@ export default function SingleProductRow({ id, title, barcode, state }) {
   return (
     <>
       <li className="flex items-center justify-between gap-x-6 py-5 hover:bg-gray-50">
-        <div className="min-w-0 ">
+        <div  onClick={onRowClicked} className="min-w-0 ">
           <div className="flex items-start gap-x-3">
             <p
-              onClick={
-                mode === 'details'
-                  ? () => setMode('')
-                  : () => setMode('details')
-              }
+             
               className="text-sm font-semibold leading-6 text-gray-900"
             >
               {title}

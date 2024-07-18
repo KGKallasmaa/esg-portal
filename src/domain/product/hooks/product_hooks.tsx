@@ -93,8 +93,11 @@ export const useUpdateProductDetails = (options?: any) => {
     {
       ...defaultOptions,
       ...options,
-      onSettled: () => {
-        const toBeInvalidated = []
+      onSuccess(data, variables, context) {
+        const toBeInvalidated = [
+          ProductQueries.Product(variables.id),
+          ProductQueries.ProducerProducts(variables.id),
+        ]
         const toBeRefetched = []
         toBeInvalidated.forEach((q) => {
           queryClient.invalidateQueries(q)

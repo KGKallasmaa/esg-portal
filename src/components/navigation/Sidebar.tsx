@@ -17,7 +17,7 @@ export default function Sidebar(props: SidebarProps) {
   return (
     <div
       className={classNames(
-        'bg-gradient-to-r from-green-700 to-green-600 dark:from-gray-950 dark:to-gray-900 lg:fixed lg:inset-y-0  lg:flex lg:w-64 lg:flex-col',
+        'bg-primary lg:fixed lg:inset-y-0  lg:flex lg:w-64 lg:flex-col',
         {
           hidden: !props.isOpenOnMobile,
         }
@@ -37,8 +37,8 @@ export default function Sidebar(props: SidebarProps) {
             href="/settings"
             className="flex items-center gap-x-4 px-6 py-3 text-sm font-semibold leading-6 text-gray-900"
           >
-            <BiCog className="h-7 w-7 text-white hover:text-primary" />
-            <span className="text-white hover:text-primary">Settings</span>
+            <BiCog className="h-7 w-7 text-white" />
+            <span className="text-white hover:underline">Settings</span>
           </Link>
         </div>
         <Link
@@ -48,7 +48,7 @@ export default function Sidebar(props: SidebarProps) {
           <BiLogOut className="h-7 w-7 text-white" />
 
           <span className="sr-only">Log out</span>
-          <span className="text-white hover:text-primary" aria-hidden="true">
+          <span className="text-white hover:underline" aria-hidden="true">
             Logout
           </span>
         </Link>
